@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>勞動部勞動力發展署─運動廣場連結網</title>
+  <style>
+    body {
+      background: #42413C;
+    }
+
+    /* 對 top、menu 區域裡面的 table 設定 */
+    table {
+      width: 100%;
+      text-align: center;
+      /* 讓儲存格之間的距離合併，把 table td 產生的距離消除 */
+      border-collapse: collapse;
+    }
+
+    /* 預設 td 會有 padding 1px， 設0消除，讓 img 與邊界不會有空隙 */
+    td {
+      padding: 0;
+    }
+
+    #main {
+      width: 1024px;
+      height: 768px;
+      margin: auto;
+      background: #FFFFFF;
+    }
+
+    #top {
+      width: 1024px;
+      height: 90px;
+      background: #00B0F0;
+    }
+
+    .logo {
+      width: 180px;
+      height: 90px;
+    }
+
+    .title {
+      font-size: 52px;
+      color: #FFFFFF;
+      font-family: "標楷體";
+      text-shadow: 10px 10px 15px #333333;
+    }
+
+    #menu {
+      width: 1024px;
+      height: 25px;
+      background: lightsalmon;
+    }
+
+    #menu a {
+      background: #EEEEEE;
+      color: #000000;
+      text-decoration: none;
+      display: block;
+      /* 讓 a 元素填滿 td 高度 */
+      line-height: 25px;
+    }
+
+    #menu a:hover {
+      background: #FFFF00;
+      color: #FF0000;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #content {
+      /* 為了加上 padding */
+      /* 第一種方式: 依照原盒模型計算方式去扣掉上下左右各20px */
+      /* width: calc(1024px - 40px);
+      height: calc(768px - 90px - 25px - 45px - 40px);
+      padding: 20px; */
+
+      /* 第二種方式:使用box-sizing:border-box，讓padding 不影響元素總尺寸 */
+      box-sizing: border-box;
+      width: 1024px;
+      height: calc(768px - 90px - 25px - 45px);
+      padding: 20px;
+      background: #FFFFFF;
+      color: #000000;
+      font-size: 14px;
+    }
+
+    iframe {
+      width: calc(1024px - 40px);
+      height: calc(768px - 90px - 25px - 45px - 40px);
+    }
+
+    #footer {
+      width: 1024px;
+      height: 45px;
+      background: #CCCCCC;
+      color: #FFFFFF;
+      font-size: 14px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="main">
+    <div id="top">
+      <table>
+        <tr>
+          <td class="logo"><a href="./index.html"><img src="./images/logo.png" alt="運動廣場連結網-回首頁"
+                title="運動廣場連結網-回首頁"></a></td>
+          <td class="title">運動廣場連結網</td>
+        </tr>
+      </table>
+    </div>
+    <div id="menu">
+      <!-- 讓 table 固定，不會因內容撐開而產生抖動 ( hover 時) -->
+      <table style="table-layout: fixed;">
+        <tr>
+          <!-- 設 target 是要跟 iframe 有連結 -->
+          <!-- td 設 width="1" 讓標籤寬度平均 -->
+          <td width="1"><a href="./index.html">首頁</a></td>
+          <td width="1"><a href="./results/health.html" target="iframe">健康天地</a></td>
+          <td width="1"><a href="./results/basketball.html" target="iframe">籃球介紹</a></td>
+          <td width="1"><a href="./results/baseball.html" target="iframe">棒球介紹</a></td>
+          <td width="1"><a href="./results/swimming.html" target="iframe">游泳介紹</a></td>
+          <td width="1"><a href="./results/msgboard.html" target="iframe">訪客留言</a></td>
+          <td width="1"><a href="./results/reference.html" target="iframe">資料來源</a></td>
+        </tr>
+      </table>
+    </div>
+    <div id="content">
+      <iframe src="./results/main.html" frameborder="0" name="iframe"></iframe>
+    </div>
+    <div id="footer">
+      網頁設計及維護：15黃正芳<br>
+      最近更新日期：2026/05/26
+    </div>
+  </div>
+</body>
+
+</html>

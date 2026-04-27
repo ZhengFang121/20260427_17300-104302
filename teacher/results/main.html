@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    /* CSS 現在可以寫巢狀語法 */
+    #news {
+      width: 280px;
+      height: 460px;
+      float: left;
+      border: 1px solid #333;
+
+      h1 {
+        font-size: 16px;
+        font-weight: bolder;
+        text-align: left;
+      }
+
+      th {
+        background: #3399ff;
+        font-size: 14px;
+        color: white;
+      }
+
+      td {
+        font-size: 12px;
+        /* 倍數是不用加單位 */
+        line-height: 2;
+      }
+
+      .odd {
+        background: #ffc;
+      }
+
+      .even {
+        background: #ddd;
+      }
+    }
+
+
+    #photo {
+      width: 590px;
+      height: 460px;
+      float: right;
+      border: 1px solid #333;
+      background: #333;
+      color: #ff0;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    #big {
+      /* 題目沒有說圖片大小，記一下尺寸 */
+      width: 570px;
+      height: 340px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="news">
+    <h1>最新消息</h1>
+    <!-- table>tr*5>td*2，但第一列的 td 改成 th，th 具有水平置中特性 -->
+    <table>
+      <tr>
+        <th>主題</th>
+        <th>發布日期</th>
+      </tr>
+      <tr class="odd">
+        <td><img src="../images/0201.png">公告全國技能競賽相關事宜</td>
+        <td>115/05/26</td>
+      </tr>
+      <tr class="even">
+        <td><img src="../images/0201.png">公告即測即評及發證相關事宜</td>
+        <td>115/05/26</td>
+      </tr>
+      <tr class="odd">
+        <td><img src="../images/0201.png">公告網頁設計修題相關事宜</td>
+        <td>115/05/26</td>
+      </tr>
+      <tr class="even">
+        <td><img src="../images/0201.png">公告網路架設應檢相關事宜</td>
+        <td>115/05/26</td>
+      </tr>
+    </table>
+  </div>
+  <div id="photo">
+    <!-- table>tr*3>td*4 -->
+    <table>
+      <tr>
+        <td colspan="4">
+          <!-- 為了點小圖變大圖設定 id -->
+          <img id="big" src="../images/0202A.png">
+        </td>
+      </tr>
+      <tr>
+        <!-- 為了點小圖變大圖設定 class -->
+        <td><img class="small" src="../images/0202B.png"></td>
+        <td><img class="small" src="../images/0203B.png"></td>
+        <td><img class="small" src="../images/0204B.png"></td>
+        <td><img class="small" src="../images/0205B.png"></td>
+      </tr>
+      <tr>
+        <td>第30屆倫敦奧運</td>
+        <td>許淑淨奪舉重銀牌</td>
+        <td>第26屆深圳世大運</td>
+        <td>第27屆喀山世大運</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- 引入 jQuery 函式庫，才能使用 $() 函式 -->
+  <script src="../others/jquery-2.1.4.min.js"></script>
+  <script>
+    // 第一種:原生寫法
+    // 1. 先抓到大圖、小圖
+    // const big = document.querySelector('#big');
+    // const smalls = document.querySelectorAll('.small');
+    // console.log(big)
+    // console.log(smalls)
+    // // 2. 用 forEach 迴圈拜訪每張小圖，並對小圖加上點擊事件
+    // smalls.forEach(function (small, index) {
+    //   console.log(small, index)
+    //   // 對每張小圖都加上點擊事件
+    //   // index 會是 0、1、2、3
+    //   small.onclick = function () {
+    //     // 第一張小圖點擊後，src 會變成 ../images/0202A.png
+    //     // 第二張小圖點擊後，src 會變成 ../images/0203A.png
+    //     // 第三張小圖點擊後，src 會變成 ../images/0204A.png
+    //     // 第張小圖點擊後，src 會變成 ../images/0205A.png
+
+    //     // 用 index 來計算出大圖的 src 的路徑
+    //     // big.src = `../images/020${index + 2}A.png`
+
+    //     // 用 replace 方法來取代掉小圖 src 中的 B 為
+    //     big.src = small.src.replace('B', 'A')
+    //   }
+    // })
+
+
+    // 第二種: jQuery 寫法，less is more（寫得少、做得多）
+    // $() 是一個函式，可以用來抓取元素，裡面可以放 CSS 選擇器
+    // 抓到四張小圖，並對小圖加上點擊事件，使用 attr() 方法來讀取或設定屬性值
+    // $('.small').click(function () {
+    //   // $(this) 表示當下被點擊的小圖，attr('src') 可以讀取其 src 屬性的值
+    //   let small_pic = $(this).attr('src') // 一個參數是取值 -> getter
+    //   let big_pic = small_pic.replace('B', 'A') // 這邊不是 jQuery 的方法，是 JS 字串的方法
+    //   $('#big').attr('src', big_pic) // 兩個參數是設定值 -> setter
+    // })
+
+    // jQuery 也可以用 index() 方法來取得被點擊小圖的索引值
+    // $('.small').click(function () {
+    //   let index = $('.small').index(this)
+    //   $('#big').attr('src', `../images/020${index + 2}A.png`)
+    // })
+
+    // jQuery 可以用 each()，在對每張小圖加上點擊事件
+    $('.small').each(function (index, small) {
+      $(small).click(function () {
+        $('#big').attr('src', `../images/020${index + 2}A.png`)
+      })
+    })
+
+  </script>
+</body>
+
+</html>

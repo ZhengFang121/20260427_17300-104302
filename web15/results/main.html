@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    /* 巢狀寫法 */
+    #news {
+      width: 280px;
+      height: 460px;
+      float: left;
+      border: 1px solid #999999;
+
+      h1 {
+        font-size: 16px;
+        font-weight: bolder;
+        text-align: left;
+        padding: 10px;
+      }
+
+      th {
+        background: #3399FF;
+        color: #FFFFFF;
+        font-size: 14px;
+      }
+
+      td {
+        font-size: 12px;
+        /* 倍數不用加單位 */
+        line-height: 2;
+      }
+
+      .odd {
+        background: #FFFFCC;
+      }
+
+      .even {
+        background: #DDDDDD;
+      }
+    }
+
+    #photo {
+      width: 590px;
+      height: 460px;
+      float: right;
+      border: 1px solid #999999;
+      background: #333333;
+      /* 子層會繼承父層，所以設定在父層就可以 */
+      color: #FFFF00;
+      text-align: center;
+    }
+
+    #big {
+      /* 題目沒說寬高，自己設定，記一下 */
+      width: 570px;
+      height: 340px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="news">
+    <h1>最新消息</h1>
+    <table>
+      <tr>
+        <!-- th 本身就有水平置中的特性 -->
+        <th>主題</th>
+        <th>發布日期</th>
+      </tr>
+      <tr class="odd">
+        <td><img src="../images/0201.png">公告全國技能競賽相關事宜</td>
+        <td>115/05/26</td>
+      </tr>
+      <tr class="even">
+        <td><img src="../images/0201.png">公告即測即評及發證相關事宜</td>
+        <td>115/05/26</td>
+      </tr>
+      <tr class="odd">
+        <td><img src="../images/0201.png">公告網頁設計修題相關事宜</td>
+        <td>115/05/26</td>
+      </tr>
+      <tr class="even">
+        <td><img src="../images/0201.png">公告網路架設應檢相關事宜</td>
+        <td>115/05/26</td>
+      </tr>
+    </table>
+  </div>
+  <div id="photo">
+    <table>
+      <tr>
+        <!-- 為了點小圖換大圖，設定 id 與 class -->
+        <td colspan="4"><img id="big" src="../images/0202A.png"></td>
+      </tr>
+      <tr>
+        <td><img class="small" src="../images/0202B.png" alt=""></td>
+        <td><img class="small" src="../images/0203B.png" alt=""></td>
+        <td><img class="small" src="../images/0204B.png" alt=""></td>
+        <td><img class="small" src="../images/0205B.png" alt=""></td>
+      </tr>
+      <tr>
+        <td>第30屆倫敦奧運</td>
+        <td>許淑淨奪舉重銀牌</td>
+        <td>第26屆深圳世大運</td>
+        <td>第27屆喀山世大運</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- 第二種:jQuery 寫法:Less is more (寫得少做得多) -->
+  <!-- 1. 先引入 jQuery 資料庫 (才能使用 $() c函式) -->
+  <script src="../others/jquery-2.1.4.min.js"></script>
+  <script>
+    // 第一種:原生寫法
+    // 1.先抓到大圖、小圖
+    // querySelector 抓一個，querySelectorAll 抓多個
+    const big = document.querySelector('#big');
+    const smalls = document.querySelectorAll('.small')
+    // 2.用 forEach 迴圈拜訪每張小圖，參數位置後 index
+    smalls.forEach(function (small, index) {
+      // 3.用 onclick 對每張小圖都加上點擊事件
+      small.onclick = (function () {
+        // 4-1. 用 index 來計算出大圖的 src 路徑
+        // 第一張小圖點擊後，src 會變成 ../images/0202A.png
+        // 第二張小圖點擊後，src 會變成 ../images/0203A.png
+        // 第三張小圖點擊後，src 會變成 ../images/0204A.png
+        // 第四張小圖點擊後，src 會變成 ../images/0205A.png
+        big.src = `../images/020${index + 2}A.png`
+
+        // 4-2. 用 replace 方法來取代掉小圖 src 中的 B 字
+        big.src = small.src.replace('B', 'A')
+      })
+    })
+
+    // 第二種:jQuery 寫法:Less is more (寫得少做得多)
+    // 2.抓到四張小圖，並對每張小圖都加上點擊事件
+    // $() 是一個函式，可以用來抓取元素，裡面可以放CSS選擇器
+    $('.small').click(function () {
+      // $(this) 表示當下被點擊的小圖
+      // attr 是 attrbute 屬性的縮寫，attr('src') 可以讀取其 src 屬性的值
+      let small_pic = $(this).attr('src') // attr() 裡面是一個參數，是取值 -> getter
+      let big_pic = small_pic.replace('B', 'A') // 這邊不是 jQuery 的方法，是 JS 字串的方法
+      $('#big').attr('src', big_pic) // attr() 裡面是兩個參數，是設定值 -> setter
+    })
+
+    // jQuery 也可以用 index() 方法來取得被點擊小圖的索引值
+    $('.small').click(function () {
+      let index = $('.small').index(this)
+      $('#big').attr('src', `../images/020${index + 2}A.png`)
+    })
+
+    // jQuery 也可以用 each()，參數位置先 index
+    $('.small').each(function (index, small) {
+      $(small).click(function () {
+        $('#big').attr('src', `../images/020${index + 2}A.png`)
+      })
+    })
+  </script>
+</body>
+
+</html>

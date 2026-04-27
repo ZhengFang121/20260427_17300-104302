@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .bread {
+      color: #FF0000;
+      font-weight: bolder;
+      margin-bottom: 1rem;
+    }
+
+    table {
+      /* 讓儲存格之間的距離合併，把 table td 產生的距離消除 */
+      border-collapse: collapse;
+      margin: auto;
+      /* table 跟 td 都要設邊框 */
+      border: 1px solid #ddd;
+      border-spacing: 0;
+    }
+
+    td {
+      /* table 跟 td 都要設邊框 */
+      border: 1px solid #ddd;
+      padding: 2px;
+    }
+
+    /* 第一欄 */
+    td:nth-child(1) {
+      width: 120px;
+      text-align: center;
+    }
+
+    /* 第二欄 */
+    td:nth-child(2) {
+      width: 580px;
+    }
+  </style>
+</head>
+
+<!-- 跑馬燈 -->
+<marquee>謝謝蒞臨本網站，請給予我們支持、鼓勵與建言。</marquee>
+<!-- 麵包屑導覽 -->
+<div class="bread">現在位置：首頁＞訪客留言</div>
+<!-- 表單輸入欄位要用 form 包住 table，reset 才能清空 -->
+<form>
+  <table>
+    <tr>
+      <td>姓　　名</td>
+      <!-- size="20" 20 個字元 -->
+      <td><input type="text" size="20"></td>
+    </tr>
+    <tr>
+      <td>電子郵件</td>
+      <td><input type="text" size="60"></td>
+    </tr>
+    <tr>
+      <td>性　　別</td>
+      <td>
+        <input type="radio" name="sex" checked>男
+        <input type="radio" name="sex">女
+      </td>
+    </tr>
+    <tr>
+      <td>職業類別</td>
+      <td>
+        <select>
+          <option>-----------請選擇職業類別-----------</option>
+          <option>1.現役軍人</option>
+          <option>2.專業人員</option>
+          <option>3.技術員及助理專業人員</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>留言內容</td>
+      <td><textarea rows="10" cols="78"></textarea></td>
+    </tr>
+    <tr>
+      <td>
+        <!-- 外面屬性值用雙引號，alert 裡面就要用單引號 -->
+        <input type="submit" value="送出" onclick="alert('歡迎蒞臨本網站，您的寶貴意見我們會儘速處理與回覆，謝謝！')">
+        <input type="reset" value="重寫">
+      </td>
+      <td></td>
+    </tr>
+  </table>
+</form>
+</body>
+
+</html>
